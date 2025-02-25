@@ -5,6 +5,7 @@ import 'package:kuliah_tpm/fragments/home_fragment_screen.dart';
 import 'package:kuliah_tpm/fragments/order_fragment_screen.dart';
 import 'package:kuliah_tpm/fragments/profile_fragment_screen.dart';
 import 'package:kuliah_tpm/fragments/search_fragment_screen.dart';
+import 'package:kuliah_tpm/menu/ganjil_genap_screen.dart';
 
 class DashboardOfFragments extends StatelessWidget {
   final List<Widget> _fragmentScreens = [
@@ -42,8 +43,56 @@ class DashboardOfFragments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: SafeArea(child: Obx(() => _fragmentScreens[_indexNumber.value])),
+      appBar: AppBar(
+        title: Text('Dashboard'),
+        automaticallyImplyLeading: false,
+      ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              margin: EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Logic to navigate to the even-odd menu
+                  Get.to(() => GanjilGenapScreen());
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  elevation: 3,
+                ),
+                child: Text(
+                  'Even-Odd Menu',
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Divider(height: 1.0, thickness: 1.0, color: Colors.grey[300]),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           currentIndex: _indexNumber.value,
