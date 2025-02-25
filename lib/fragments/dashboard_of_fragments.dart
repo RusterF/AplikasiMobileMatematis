@@ -7,14 +7,14 @@ import 'package:kuliah_tpm/fragments/profile_fragment_screen.dart';
 import 'package:kuliah_tpm/fragments/search_fragment_screen.dart';
 
 class DashboardOfFragments extends StatelessWidget {
-  List<Widget> _fragmentScreens = [
+  final List<Widget> _fragmentScreens = [
     HomeFragmentsScreen(),
     SearchFragmentScreen(),
     OrderFragmentScreen(),
     ProfileFragmentScreen(),
   ];
 
-  List _navigationButtonProperties = [
+  final List _navigationButtonProperties = [
     {
       "active_icon": Icons.home,
       "non_active_icon": Icons.home_outlined,

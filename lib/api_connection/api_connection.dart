@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
 class Api {
-  static const baseUrl = "http://192.168.56.1/db_tpm/";
+  static const baseUrl = "http://localhost/db_tpm/";
 
   // Function to add a new user
   static Future<bool> addUser(Map<String, String> currentUser) async {
@@ -14,7 +14,7 @@ class Api {
       if (res.statusCode == 200) {
         var data = jsonDecode(res.body);
         print("Response Data: $data");
-        return data["success"] == true;
+        return true;
       } else {
         print("Failed to get response: ${res.statusCode}");
         return false;
