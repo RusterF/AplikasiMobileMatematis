@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             "Error",
             responseData["message"],
             snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.indigo,
             colorText: Colors.white,
           );
         }
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           "Error",
           "Server error: ${res.statusCode}",
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.indigo,
           colorText: Colors.white,
         );
       }
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
         "Error",
         "Something went wrong: $e",
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.indigo,
         colorText: Colors.white,
       );
     }
@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: const Text(
                               'SIGN UP',
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: Colors.indigo,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

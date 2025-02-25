@@ -45,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           "Error",
           "Failed to create account. Please try again.",
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.indigo,
           colorText: Colors.white,
         );
       }
@@ -91,24 +91,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(height: 20),
                         buildLabel('Nama'),
-                        MyTextField(
-                          controller: nameController,
-                          hintText: 'Enter your name',
-                          obscureText: false,
+                        SizedBox(height: 3),
+                        SizedBox(
+                          width: 300,
+                          child: MyTextField(
+                            controller: nameController,
+                            hintText: 'Enter your name',
+                            obscureText: false,
+                          ),
                         ),
                         const SizedBox(height: 14),
                         buildLabel('Email'),
-                        MyTextField(
-                          controller: emailController,
-                          hintText: 'Enter your email',
-                          obscureText: false,
+                        SizedBox(height: 3),
+                        SizedBox(
+                          width: 300,
+                          child: MyTextField(
+                            controller: emailController,
+                            hintText: 'Enter your email',
+                            obscureText: false,
+                          ),
                         ),
                         const SizedBox(height: 14),
                         buildLabel('Password'),
-                        MyTextField(
-                          controller: passwordController,
-                          hintText: 'Enter your password',
-                          obscureText: true,
+                        SizedBox(height: 3),
+                        SizedBox(
+                          width: 300,
+                          child: MyTextField(
+                            controller: passwordController,
+                            hintText: 'Enter your password',
+                            obscureText: true,
+                          ),
                         ),
                         const SizedBox(height: 35),
                         MyButton(text: "SIGN UP", onTap: signUp),
@@ -128,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: const Text(
                                 'LOGIN',
                                 style: TextStyle(
-                                  color: Colors.blue,
+                                  color: Colors.indigo,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

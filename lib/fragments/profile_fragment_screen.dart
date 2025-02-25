@@ -14,9 +14,11 @@ class ProfileFragmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Data Kelompok"),
-        backgroundColor: Colors.red,
+        title: const Text("Data Kelompok", style: TextStyle(color: Colors.white) ),
+        
+        backgroundColor: Colors.indigo[600],
       ),
       body: SafeArea(
         child: Column(
@@ -56,7 +58,7 @@ class ProfileFragmentScreen extends StatelessWidget {
                 },
                 children: const [
                   TableRow(
-                    decoration: BoxDecoration(color: Colors.red),
+                    decoration: BoxDecoration(color: Colors.indigo),
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8.0),
@@ -147,23 +149,23 @@ class ProfileFragmentScreen extends StatelessWidget {
 
             const Spacer(),
 
-            // Logout Button (Kept from baseline code)
-            Positioned(
-              bottom: 50,
-              left: MediaQuery.of(context).size.width * 0.3,
-              right: MediaQuery.of(context).size.width * 0.3,
-              child: ElevatedButton(
-                onPressed: () => logout(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 40,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50), // Mengangkat tombol ke atas
+              child: Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: () => logout(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.indigo[600],
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 40,
+                    ),
                   ),
-                ),
-                child: const Text(
-                  "Logout",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  child: const Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
               ),
             ),
