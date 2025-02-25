@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import 'package:kuliah_tpm/api_connection/api_connection.dart';
+import 'package:kuliah_tpm/api_connection/api_connection.dart';
 import 'package:kuliah_tpm/components/my_button.dart';
 import 'package:kuliah_tpm/components/my_textfield.dart';
 import 'package:kuliah_tpm/authentication/login_screen.dart';
@@ -13,11 +13,44 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var nameController = TextEditingController();
-  var phoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+
+  void signUp() async {
+    if (formKey.currentState!.validate()) {
+      var data = {
+        "name": nameController.text,
+        "email": emailController.text,
+        "password": passwordController.text,
+      };
+
+      bool success = await Api.addUser(data);
+
+      if (success) {
+        Get.snackbar(
+          "Success",
+          "Account created successfully!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+
+        Future.delayed(const Duration(seconds: 2), () {
+          Get.off(LoginScreen()); // Redirect to login screen
+        });
+      } else {
+        Get.snackbar(
+          "Error",
+          "Failed to create account. Please try again.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,202 +66,99 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: SafeArea(
           child: Center(
             child: Container(
-              width: 350, // Adjust width as needed
-              height: 725, // Adjust height as needed
+              width: 350,
+              height: 650,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(
-                  30,
-                ), // Half of width or height for a circle
+                borderRadius: BorderRadius.circular(30),
               ),
               child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 30),
-                    Text(
-                      'SIGN UP',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Nama',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                            ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 30),
+                        Text(
+                          'SIGN UP',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[600],
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    MyTextField(
-                      controller: nameController,
-                      hintText: '',
-                      obscureText: false,
-                    ),
-                    const SizedBox(height: 14),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Email',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    MyTextField(
-                      controller: emailController,
-                      hintText: '',
-                      obscureText: false,
-                    ),
-                    const SizedBox(height: 14),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Password',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    MyTextField(
-                      controller: passwordController,
-                      hintText: '',
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 14),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'No HP',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    MyTextField(
-                      controller: phoneController,
-                      hintText: '',
-                      obscureText: false,
-                    ),
-                    const SizedBox(height: 35),
-                    MyButton(
-                      text: "SIGN UP",
-                      onTap: () {
-                        var data = {
-                          "fullName": nameController.text,
-                          "email": emailController.text,
-                          "password": passwordController.text,
-                          "phoneNumber": phoneController.text,
-                        };
-
-                        //  Api.addUser(data);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Sudah punya akun? ',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(LoginScreen());
-                            },
-                            child: const Text(
-                              'LOGIN',
+                        ),
+                        const SizedBox(height: 20),
+                        buildLabel('Nama'),
+                        MyTextField(
+                          controller: nameController,
+                          hintText: 'Enter your name',
+                          obscureText: false,
+                        ),
+                        const SizedBox(height: 14),
+                        buildLabel('Email'),
+                        MyTextField(
+                          controller: emailController,
+                          hintText: 'Enter your email',
+                          obscureText: false,
+                        ),
+                        const SizedBox(height: 14),
+                        buildLabel('Password'),
+                        MyTextField(
+                          controller: passwordController,
+                          hintText: 'Enter your password',
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 35),
+                        MyButton(text: "SIGN UP", onTap: signUp),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Sudah punya akun? ',
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: Colors.grey[600],
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              thickness: 1,
-                              color: Colors.grey[400],
+                            GestureDetector(
+                              onTap: () => Get.to(LoginScreen()),
+                              child: const Text(
+                                'LOGIN',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                            ),
-                            child: Text(
-                              '    OR    ',
-                              style: TextStyle(color: Colors.grey[400]),
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 0.5,
-                              color: Colors.grey[400],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //           SquareTile(
-                        //                onTap: () => AuthService().signInWithGoogle(),
-                        //                  imagePath: 'lib/images/google.png'),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildLabel(String text) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
