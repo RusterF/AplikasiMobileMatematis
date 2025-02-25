@@ -116,13 +116,13 @@ class ProfileFragmentScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          "R Fiuw Winlye Ferdiansyah",
+                          "Naufal Rafid Muhammad Faddila",
                           textAlign: TextAlign.center,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text("123220098", textAlign: TextAlign.center),
+                        child: Text("123220052", textAlign: TextAlign.center),
                       ),
                     ],
                   ),
@@ -130,11 +130,14 @@ class ProfileFragmentScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text("Naufal", textAlign: TextAlign.center),
+                        child: Text(
+                          "R Fiuw Winlye Ferdiansyah",
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text("123220100", textAlign: TextAlign.center),
+                        child: Text("123220098", textAlign: TextAlign.center),
                       ),
                     ],
                   ),
