@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
 class Api {
-  static const baseUrl = "http://localhost/db_tpm/";
+  static const baseUrl = "http://192.168.56.1/db_tpm/";
 
   // Function to add a new user
   static Future<bool> addUser(Map<String, String> currentUser) async {
@@ -26,8 +26,8 @@ class Api {
   }
 
   // Function to get users
-  static Future<List<Map<String, dynamic>>> getUsers() async {
-    var url = Uri.parse("${baseUrl}getUsers.php");
+  static Future<List<Map<String, dynamic>>> getUser() async {
+    var url = Uri.parse("${baseUrl}getUser.php");
 
     try {
       final res = await http.get(url);

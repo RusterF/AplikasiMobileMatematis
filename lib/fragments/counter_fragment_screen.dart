@@ -41,13 +41,14 @@ class _DigitCounterState extends State<DigitCounter> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: SingleChildScrollView(
+          // Scrollable to prevent overflow
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 200,
+                height: 180, // Reduced height slightly
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
@@ -56,12 +57,12 @@ class _DigitCounterState extends State<DigitCounter> {
                 child: Center(
                   child: Icon(
                     Icons.calculate_rounded,
-                    size: 80,
+                    size: 72, // Slightly smaller icon
                     color: Colors.indigo[400],
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 32), // Reduced vertical spacing
               const Text(
                 'Cek Jumlah Digit Angka',
                 style: TextStyle(
@@ -71,13 +72,13 @@ class _DigitCounterState extends State<DigitCounter> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10), // Reduced spacing
               const Text(
                 'Masukkan angka untuk menghitung jumlah digitnya',
                 style: TextStyle(fontSize: 14, color: Colors.black54),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 28), // Reduced spacing
               TextField(
                 controller: _controller,
                 keyboardType: TextInputType.number,
@@ -86,8 +87,8 @@ class _DigitCounterState extends State<DigitCounter> {
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 16,
+                    horizontal: 18, // Slightly reduced padding
+                    vertical: 14,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -106,10 +107,10 @@ class _DigitCounterState extends State<DigitCounter> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20), // Reduced spacing
               SizedBox(
                 width: double.infinity,
-                height: 56,
+                height: 50, // Slightly smaller button
                 child: ElevatedButton(
                   onPressed: _countDigits,
                   style: ElevatedButton.styleFrom(
@@ -126,22 +127,26 @@ class _DigitCounterState extends State<DigitCounter> {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 28), // Reduced spacing
               AnimatedOpacity(
                 opacity: _errorMessage.isNotEmpty || _digitCount > 0 ? 1 : 0,
                 duration: const Duration(milliseconds: 300),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 20,
+                  ),
                   decoration: BoxDecoration(
-                    color: _errorMessage.isNotEmpty
-                        ? Colors.red[50]
-                        : Colors.blue[50],
+                    color:
+                        _errorMessage.isNotEmpty
+                            ? Colors.red[50]
+                            : Colors.blue[50],
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: _errorMessage.isNotEmpty
-                          ? Colors.red[200]!
-                          : Colors.blue[200]!,
+                      color:
+                          _errorMessage.isNotEmpty
+                              ? Colors.red[200]!
+                              : Colors.blue[200]!,
                       width: 1,
                     ),
                   ),
@@ -152,28 +157,31 @@ class _DigitCounterState extends State<DigitCounter> {
                         _errorMessage.isNotEmpty
                             ? Icons.dangerous_outlined
                             : Icons.check_circle_outlined,
-                        color: _errorMessage.isNotEmpty
-                            ? Colors.red[600]
-                            : Colors.blue[600],
-                        size: 24,
+                        color:
+                            _errorMessage.isNotEmpty
+                                ? Colors.red[600]
+                                : Colors.blue[600],
+                        size: 22, // Slightly smaller icon
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 10), // Reduced spacing
                       Text(
                         _errorMessage.isNotEmpty
                             ? _errorMessage
                             : 'Jumlah Digit: $_digitCount',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18, // Slightly smaller font
                           fontWeight: FontWeight.bold,
-                          color: _errorMessage.isNotEmpty
-                              ? Colors.red[600]
-                              : Colors.blue[600],
+                          color:
+                              _errorMessage.isNotEmpty
+                                  ? Colors.red[600]
+                                  : Colors.blue[600],
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
+              const SizedBox(height: 20), // Final bottom spacing
             ],
           ),
         ),

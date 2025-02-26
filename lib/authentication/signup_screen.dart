@@ -19,36 +19,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final nameController = TextEditingController();
 
   void signUp() async {
-    if (formKey.currentState!.validate()) {
-      var data = {
-        "name": nameController.text,
-        "email": emailController.text,
-        "password": passwordController.text,
-      };
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      Get.snackbar(
+        "Error",
+        "All fields are required!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
 
-      bool success = await Api.addUser(data);
+    if (!emailController.text.endsWith("@gmail.com")) {
+      Get.snackbar(
+        "Invalid Email",
+        "Please enter a valid @gmail.com email address.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
+      return;
+    }
 
-      if (success) {
-        Get.snackbar(
-          "Success",
-          "Account created successfully!",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
+    var data = {
+      "name": nameController.text,
+      "email": emailController.text,
+      "password": passwordController.text,
+    };
 
-        Future.delayed(const Duration(seconds: 2), () {
-          Get.off(LoginScreen()); // Redirect to login screen
-        });
-      } else {
-        Get.snackbar(
-          "Error",
-          "Failed to create account. Please try again.",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.indigo,
-          colorText: Colors.white,
-        );
-      }
+    bool success = await Api.addUser(data);
+
+    if (success) {
+      Get.snackbar(
+        "Success",
+        "Account created successfully!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.off(LoginScreen()); // Redirect to login screen
+      });
+    } else {
+      Get.snackbar(
+        "Error",
+        "Failed to create account. Please try again.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.indigo,
+        colorText: Colors.white,
+      );
     }
   }
 
@@ -67,86 +89,80 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Center(
             child: Container(
               width: 350,
-              height: 650,
+              height: 550,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Form(
                     key: formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 30),
-                        Text(
-                          'SIGN UP',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
+                        Center(
+                          child: Text(
+                            'SIGN UP',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[600],
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),
                         buildLabel('Nama'),
-                        SizedBox(height: 3),
-                        SizedBox(
-                          width: 300,
-                          child: MyTextField(
-                            controller: nameController,
-                            hintText: 'Enter your name',
-                            obscureText: false,
-                          ),
+                        MyTextField(
+                          controller: nameController,
+                          hintText: 'Enter your name',
+                          obscureText: false,
                         ),
                         const SizedBox(height: 14),
                         buildLabel('Email'),
-                        SizedBox(height: 3),
-                        SizedBox(
-                          width: 300,
-                          child: MyTextField(
-                            controller: emailController,
-                            hintText: 'Enter your email',
-                            obscureText: false,
-                          ),
+                        MyTextField(
+                          controller: emailController,
+                          hintText: 'Enter your email',
+                          obscureText: false,
                         ),
                         const SizedBox(height: 14),
                         buildLabel('Password'),
-                        SizedBox(height: 3),
-                        SizedBox(
-                          width: 300,
-                          child: MyTextField(
-                            controller: passwordController,
-                            hintText: 'Enter your password',
-                            obscureText: true,
-                          ),
+                        MyTextField(
+                          controller: passwordController,
+                          hintText: 'Enter your password',
+                          obscureText: true,
                         ),
                         const SizedBox(height: 35),
-                        MyButton(text: "SIGN UP", onTap: signUp),
+                        Center(child: MyButton(text: "SIGN UP", onTap: signUp)),
                         const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Sudah punya akun? ',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => Get.to(() => LoginScreen()),
-                              child: const Text(
-                                'LOGIN',
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Sudah punya akun? ',
                                 style: TextStyle(
-                                  color: Colors.indigo,
+                                  color: Colors.grey[600],
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ],
+                              GestureDetector(
+                                onTap: () => Get.to(() => LoginScreen()),
+                                child: const Text(
+                                  'LOGIN',
+                                  style: TextStyle(
+                                    color: Colors.indigo,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
@@ -160,17 +176,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget buildLabel(String text) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          text,
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontWeight: FontWeight.bold,
-          ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, bottom: 5),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.grey[600],
+          fontWeight: FontWeight.bold,
         ),
-      ],
+      ),
     );
   }
 }
