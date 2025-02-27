@@ -16,8 +16,18 @@ class ProfileFragmentScreen extends StatelessWidget {
     {"name": "R Fiuw Winlye Ferdiansyah", "nim": "123220098"},
   ];
 
-  final List<Color> nameColors = [Colors.white, Colors.black, Colors.black, Colors.white];
-  final List<Color> nimColors = [Colors.white, Colors.black, Colors.black, Colors.white];
+  final List<Color> nameColors = [
+    Colors.white,
+    Colors.black,
+    Colors.black,
+    Colors.white,
+  ];
+  final List<Color> nimColors = [
+    Colors.white,
+    Colors.black,
+    Colors.black,
+    Colors.white,
+  ];
 
   final List<Color> cardColors = [
     Colors.indigo[500]!,
@@ -31,7 +41,10 @@ class ProfileFragmentScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Data Kelompok", style: TextStyle(color: Colors.white)),
+        title: const Text(
+          "Data Kelompok",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.indigo[600],
       ),
       body: SafeArea(
@@ -41,7 +54,9 @@ class ProfileFragmentScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 1)),
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey.shade300, width: 1),
+                ),
               ),
               child: const Column(
                 children: [
@@ -57,6 +72,7 @@ class ProfileFragmentScreen extends StatelessWidget {
                 ],
               ),
             ),
+
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -65,7 +81,8 @@ class ProfileFragmentScreen extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
-                    childAspectRatio: 1.8,
+                    childAspectRatio:
+                        1.5, // Menyesuaikan rasio agar tidak terlalu tinggi
                   ),
                   itemCount: members.length,
                   itemBuilder: (context, index) {
@@ -79,24 +96,36 @@ class ProfileFragmentScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.person, size: 35, color: Colors.black54),
+                            const Icon(
+                              Icons.person,
+                              size: 35,
+                              color: Colors.black54,
+                            ),
                             const SizedBox(height: 6),
-                            Text(
-                              member["name"]!,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: nameColors[index % nameColors.length],
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                member["name"]!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: nameColors[index % nameColors.length],
+                                ),
                               ),
                             ),
-                            Text(
-                              "NIM: ${member["nim"]!}",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: nimColors[index % nimColors.length],
+                            const SizedBox(height: 4),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "NIM: ${member["nim"]!}",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: nimColors[index % nimColors.length],
+                                ),
                               ),
                             ),
                           ],
@@ -107,13 +136,17 @@ class ProfileFragmentScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(bottom: 40),
               child: ElevatedButton(
                 onPressed: () => logout(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.indigo[600],
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 32,
+                  ),
                 ),
                 child: const Text(
                   "Logout",

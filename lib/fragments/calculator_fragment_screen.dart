@@ -12,6 +12,7 @@ class CalculatorFragmentScreen extends StatefulWidget {
 class CalculatorFragmentScreenState extends State<CalculatorFragmentScreen> {
   String expression = "";
   final int maxExpressionLength = 50;
+
   void onButtonPressed(String value) {
     setState(() {
       if (value == "C") {
@@ -32,11 +33,10 @@ class CalculatorFragmentScreenState extends State<CalculatorFragmentScreen> {
         }
       } else {
         if (expression.length < maxExpressionLength) {
-          // Handle negative numbers correctly
           if (value == "-" &&
               (expression.isEmpty ||
                   "+-*/(".contains(expression[expression.length - 1]))) {
-            expression += value; // Allow negative numbers
+            expression += value;
           } else if (value != "-" || expression.isNotEmpty) {
             expression += value;
           }
@@ -49,11 +49,11 @@ class CalculatorFragmentScreenState extends State<CalculatorFragmentScreen> {
     return Expanded(
       flex: flex.toInt(),
       child: Padding(
-        padding: const EdgeInsets.all(4.0), // Reduced padding
+        padding: const EdgeInsets.all(4.0),
         child: ElevatedButton(
           onPressed: () => onButtonPressed(text),
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16), // Reduced height
+            padding: const EdgeInsets.symmetric(vertical: 16),
             textStyle: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -61,9 +61,7 @@ class CalculatorFragmentScreenState extends State<CalculatorFragmentScreen> {
             backgroundColor: color ?? Colors.grey[800],
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                8,
-              ), // Slightly smaller buttons
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
           child: Text(text),
@@ -86,33 +84,32 @@ class CalculatorFragmentScreenState extends State<CalculatorFragmentScreen> {
         centerTitle: true,
       ),
       body: Column(
+        mainAxisAlignment:
+            MainAxisAlignment.end, 
         children: [
-          // Display Section (More Flexible)
           Expanded(
-            flex: 3, // Increased flex to give it more space
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(
-                16,
-              ), // Reduced padding to save space
+              padding: const EdgeInsets.all(16),
               alignment: Alignment.bottomRight,
-              child: SingleChildScrollView(
-                reverse: true,
-                scrollDirection: Axis.horizontal,
-                child: Text(
-                  expression,
-                  style: const TextStyle(
-                    fontSize: 32,
-                    color: Colors.black,
-                  ), // Slightly smaller font
-                ),
+              color: Colors.grey[200], 
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                children: [
+                  Text(
+                    expression,
+                    textAlign: TextAlign.end,
+                    style: const TextStyle(fontSize: 40, color: Colors.black),
+                  ),
+                ],
               ),
             ),
           ),
-          // Button Grid (Adjusted)
-          Expanded(
-            flex: 5, // Reduced flex to push buttons up
+
+          Container(
+            padding: const EdgeInsets.only(bottom: 16),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [
