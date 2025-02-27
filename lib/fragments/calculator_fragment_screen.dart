@@ -23,7 +23,7 @@ class CalculatorFragmentScreenState extends State<CalculatorFragmentScreen> {
       } else if (value == "=") {
         try {
           String sanitizedExpression = expression.replaceAll(",", ".");
-          Expression exp = Parser().parse(sanitizedExpression);
+          Expression exp = GrammarParser().parse(sanitizedExpression);
           ContextModel cm = ContextModel();
           double eval = exp.evaluate(EvaluationType.REAL, cm);
           expression = eval.toString();

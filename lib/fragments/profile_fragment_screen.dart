@@ -3,34 +3,45 @@ import 'package:get/get.dart';
 import 'package:kuliah_tpm/authentication/login_screen.dart';
 
 class ProfileFragmentScreen extends StatelessWidget {
-  const ProfileFragmentScreen({super.key});
+  ProfileFragmentScreen({super.key});
 
   void logout(BuildContext context) {
-    Get.offAll(
-      () => LoginScreen(),
-    ); // This clears the navigation stack and redirects to login
+    Get.offAll(() => LoginScreen());
   }
+
+  final List<Map<String, String>> members = [
+    {"name": "Rahel Anatasya Sinaga", "nim": "123220018"},
+    {"name": "Dea Reigina", "nim": "123220020"},
+    {"name": "Naufal Rafid Muhammad Faddila", "nim": "123220052"},
+    {"name": "R Fiuw Winlye Ferdiansyah", "nim": "123220098"},
+  ];
+
+  final List<Color> nameColors = [Colors.white, Colors.black, Colors.black, Colors.white];
+  final List<Color> nimColors = [Colors.white, Colors.black, Colors.black, Colors.white];
+
+  final List<Color> cardColors = [
+    Colors.indigo[500]!,
+    Colors.indigo[200]!,
+    Colors.indigo[200]!,
+    Colors.indigo[500]!,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Data Kelompok", style: TextStyle(color: Colors.white) ),
-        
+        title: const Text("Data Kelompok", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.indigo[600],
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // Class Title Section
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.grey.shade300, width: 1),
-                ),
+                border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 1)),
               ),
               child: const Column(
                 children: [
@@ -46,126 +57,67 @@ class ProfileFragmentScreen extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Group Members Table
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Table(
-                border: TableBorder.all(color: Colors.grey.shade400),
-                columnWidths: const {
-                  0: FlexColumnWidth(3), // Name column wider
-                  1: FlexColumnWidth(2), // NIM column
-                },
-                children: const [
-                  TableRow(
-                    decoration: BoxDecoration(color: Colors.indigo),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Nama",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.center,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 1.8,
+                  ),
+                  itemCount: members.length,
+                  itemBuilder: (context, index) {
+                    final member = members[index];
+                    return Card(
+                      color: cardColors[index % cardColors.length],
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.person, size: 35, color: Colors.black54),
+                            const SizedBox(height: 6),
+                            Text(
+                              member["name"]!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: nameColors[index % nameColors.length],
+                              ),
+                            ),
+                            Text(
+                              "NIM: ${member["nim"]!}",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: nimColors[index % nimColors.length],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "NIM",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Rahel Anatasya Sinaga",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("123220018", textAlign: TextAlign.center),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("Dea Reigina", textAlign: TextAlign.center),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("123220020", textAlign: TextAlign.center),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Naufal Rafid Muhammad Faddila",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("123220052", textAlign: TextAlign.center),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "R Fiuw Winlye Ferdiansyah",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("123220098", textAlign: TextAlign.center),
-                      ),
-                    ],
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
             ),
-
-            const Spacer(),
-
             Padding(
-              padding: const EdgeInsets.only(bottom: 50), // Mengangkat tombol ke atas
-              child: Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () => logout(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.indigo[600],
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 40,
-                    ),
-                  ),
-                  child: const Text(
-                    "Logout",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+              padding: const EdgeInsets.only(bottom: 40),
+              child: ElevatedButton(
+                onPressed: () => logout(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo[600],
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                ),
+                child: const Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
             ),

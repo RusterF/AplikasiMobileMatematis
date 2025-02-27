@@ -38,7 +38,9 @@ class DashboardOfFragments extends StatelessWidget {
     },
   ];
 
-  RxInt _indexNumber = 0.obs;
+  final RxInt _indexNumber = 0.obs;
+
+  DashboardOfFragments({super.key});
 
   @override
   Widget build(BuildContext context) {
